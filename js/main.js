@@ -174,18 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileNav.classList.remove('open');
         lenis.start();
 
-        // Wait for the overlay transition (0.4s) to fully complete,
-        // then refresh ScrollTrigger positions (critical for pinned #products)
+        // Let Lenis natively resolve target element position after the menu starts closing
         setTimeout(() => {
-          if (typeof ScrollTrigger !== 'undefined') {
-            ScrollTrigger.refresh();
-          }
-          const target = document.querySelector(href);
-          if (target) {
-            const targetTop = target.getBoundingClientRect().top + window.scrollY - 60;
-            lenis.scrollTo(targetTop, { duration: 1.5 });
-          }
-        }, 450);
+          lenis.scrollTo(href, { offset: -60, duration: 1.2 });
+        }, 150);
       });
     });
   }
