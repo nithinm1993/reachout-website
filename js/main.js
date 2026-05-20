@@ -169,12 +169,23 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
+        const href = link.getAttribute('href');
         hamburger.classList.remove('open');
         mobileNav.classList.remove('open');
         lenis.start();
+
+        // Wait for the overlay transition (0.4s) to fully complete,
+        // then refresh ScrollTrigger positions (critical for pinned #products)
         setTimeout(() => {
-          scrollToSection(link.getAttribute('href'));
-        }, 100);
+          if (typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.refresh();
+          }
+          const target = document.querySelector(href);
+          if (target) {
+            const targetTop = target.getBoundingClientRect().top + window.scrollY - 60;
+            lenis.scrollTo(targetTop, { duration: 1.5 });
+          }
+        }, 450);
       });
     });
   }
