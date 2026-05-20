@@ -56,9 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
     progressBar.style.width = (progress * 100) + '%';
 
     // Hero particle dispersal
-    if (heroScene && heroEl) {
+    if (globalScene && heroEl) {
       const heroProgress = Math.min(1, scroll / heroEl.offsetHeight);
-      heroScene.setScroll(heroProgress);
+      globalScene.setScroll(heroProgress);
     }
   });
 
