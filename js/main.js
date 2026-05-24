@@ -141,7 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Smooth scroll to section
   function scrollToSection(href) {
     const target = document.querySelector(href);
-    if (target) lenis.scrollTo(target, { offset: -60, duration: 1.5 });
+    const offset = href === '#about' ? 0 : -60;
+    if (target) lenis.scrollTo(target, { offset: offset, duration: 1.5 });
   }
 
   navLinks.forEach(link => {
@@ -179,7 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Let Lenis natively resolve target element position after the menu starts closing
         setTimeout(() => {
-          lenis.scrollTo(href, { offset: -60, duration: 1.2 });
+          const offset = href === '#about' ? 0 : -60;
+          lenis.scrollTo(href, { offset: offset, duration: 1.2 });
         }, 150);
       });
     });
