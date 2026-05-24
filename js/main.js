@@ -120,13 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Active section tracking
   function updateActiveNav() {
-    const scrollY = window.scrollY + window.innerHeight * 0.35;
     let current = '';
+    const triggerPoint = window.innerHeight * 0.35;
+    
     sections.forEach(section => {
-      if (scrollY >= section.offsetTop) {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= triggerPoint) {
         current = section.getAttribute('id');
       }
     });
+    
     navLinks.forEach(link => {
       link.classList.toggle('active', link.getAttribute('href') === '#' + current);
     });
