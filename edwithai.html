@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdwithAI — The AI That Remembers Your Child | ReachOut</title>
+  <meta name="description" content="EdwithAI: An AI-native K-12 education platform with a three-layer cognitive memory system — adaptive learning that remembers every breakthrough and adapts to every struggle.">
+  <meta name="keywords" content="EdwithAI, AI Education, K-12, Adaptive Learning, Cognitive Memory, AI Tutor, EdTech">
+  <meta name="author" content="ReachOut AI Technologies">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="EdwithAI — The AI That Remembers Your Child">
+  <meta property="og:description" content="An AI-native education platform where the tutor remembers every breakthrough, adapts to every struggle, and grows alongside your child.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://reach-out.tech/edwithai.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ===== EdwithAI Page Styles ===== */
+
+    /* Hero */
+    .edwithai-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 5%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .edwithai-hero-content {
+      max-width: 900px;
+      margin-top: -5vh;
+    }
+
+    .edwithai-tagline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(0.7rem, 1vw, 0.85rem);
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 1rem;
+    }
+
+    .edwithai-hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.8vw, 3.2rem);
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+    }
+
+    .edwithai-hero-title .gradient-word {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .edwithai-hero-subtitle {
+      font-size: clamp(0.85rem, 1.1vw, 1rem);
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 750px;
+      margin-inline: auto;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      background: linear-gradient(45deg, #8b5cf6, #2dd4bf);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.5);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      background: transparent;
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background 0.3s;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-violet);
+      background: rgba(139, 92, 246, 0.1);
+    }
+
+    /* 3D Canvas Container */
+    #edwithai-canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    /* Overview Section */
+    .overview-section {
+      position: relative;
+      z-index: 2;
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .overview-content {
+      max-width: 800px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 1rem;
+    }
+
+    .section-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .section-text {
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 0.92rem;
+    }
+
+    .section-text + .section-text {
+      margin-top: 1rem;
+    }
+
+    /* Split Problem/Solution */
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .split-section {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+    }
+
+    .info-card {
+      background: var(--surface, rgba(255,255,255,0.025));
+      border: 1px solid var(--border, rgba(255,255,255,0.06));
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(139, 92, 246, 0.3);
+    }
+
+    .info-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .info-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 0.9rem;
+    }
+
+    /* USP / Feature Cards */
+    .features-section {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .features-title {
+      text-align: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .features-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border, rgba(255,255,255,0.06));
+      border-radius: 16px;
+      padding: 2rem 2rem;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    [data-theme="light"] .feature-card {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: #8b5cf6;
+    }
+
+    .feature-card .feature-emoji {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .feature-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      color: #ffffff;
+      margin-bottom: 0.8rem;
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+
+    .feature-card .feature-detail {
+      margin-top: 0.8rem;
+      padding-left: 1rem;
+      border-left: 2px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .feature-card .feature-detail p {
+      font-size: 0.82rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .feature-card .feature-detail strong {
+      color: var(--accent-cyan);
+    }
+
+    /* How It Works */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .steps-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .step-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border, rgba(255,255,255,0.06));
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+      position: relative;
+    }
+
+    [data-theme="light"] .step-card {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-cyan);
+    }
+
+    .step-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .step-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+
+    .step-card p {
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    /* Roles Table Section */
+    .roles-section {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .roles-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .roles-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .roles-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .role-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border, rgba(255,255,255,0.06));
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    [data-theme="light"] .role-card {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .role-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-violet);
+    }
+
+    .role-card .role-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .role-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+
+    .role-card p {
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    /* Comparison Table */
+    .comparison-section {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    [data-theme="light"] .comparison-table th,
+    [data-theme="light"] .comparison-table td {
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .comparison-table th {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      background: rgba(139, 92, 246, 0.08);
+    }
+
+    .comparison-table td:first-child {
+      color: var(--text-secondary);
+    }
+
+    .comparison-table td:last-child {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .comparison-table tbody tr {
+      transition: background 0.3s;
+    }
+
+    .comparison-table tbody tr:hover {
+      background: rgba(139, 92, 246, 0.05);
+    }
+
+    .comparison-table-wrapper {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid var(--border, rgba(255,255,255,0.06));
+    }
+
+    /* Institutional Section */
+    .institutional-section {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .institutional-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .institutional-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* CTA Section */
+    .cta-section {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 5rem 5%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-section .cta-content {
+      max-width: 750px;
+    }
+
+    .cta-tagline {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      margin-top: 2rem;
+      opacity: 0.8;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-buttons {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .hero-buttons .btn-secondary {
+        margin-left: 0;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 0.8rem;
+        font-size: 0.78rem;
+      }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- Global Background -->
+  <canvas id="global-canvas"></canvas>
+
+  <!-- 3D Scene Container -->
+  <div id="edwithai-canvas-container"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 260 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="27" r="22" fill="#1e3a4f"/>
+        <circle cx="24" cy="27" r="3.5" fill="#fff"/>
+        <circle cx="24" cy="9" r="2.8" fill="#fff"/>
+        <circle cx="10" cy="18" r="2.8" fill="#fff"/>
+        <circle cx="38" cy="18" r="2.8" fill="#fff"/>
+        <circle cx="10" cy="37" r="2.5" fill="#fff"/>
+        <circle cx="38" cy="37" r="2.5" fill="#fff"/>
+        <circle cx="24" cy="46" r="2.5" fill="#fff"/>
+        <circle cx="40" cy="27" r="2" fill="#fff"/>
+        <circle cx="8" cy="27" r="2" fill="#fff"/>
+        <line x1="24" y1="27" x2="24" y2="9" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="10" y2="18" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="38" y2="18" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="10" y2="37" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="38" y2="37" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="24" y2="46" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="40" y2="27" stroke="#fff" stroke-width="1" opacity="0.5"/>
+        <line x1="24" y1="27" x2="8" y2="27" stroke="#fff" stroke-width="1" opacity="0.5"/>
+        <text x="56" y="30" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="24" fill="#f0f0f5">ReachOut</text>
+        <text x="56" y="46" font-family="Inter, sans-serif" font-weight="400" font-size="10" fill="#2dd4bf" letter-spacing="3.5">ARTING AI</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about" class="nav-link">About</a></li>
+      <li><a href="index.html#products" class="nav-link active">Our Arts</a></li>
+      <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <div class="theme-toggle-thumb">
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+    </button>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="edwithai-hero" id="hero">
+    <div class="edwithai-hero-content">
+      <span class="edwithai-tagline">Education × Intelligence</span>
+      <h1 class="edwithai-hero-title">The AI That <span class="gradient-word">Remembers</span> Your Child.</h1>
+      <p class="edwithai-hero-subtitle">
+        An AI-native education platform where the tutor remembers every breakthrough, adapts to every struggle, and grows alongside your child — not a chatbot, a cognitive companion.
+      </p>
+      <div class="hero-buttons" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="#contact" class="btn-primary" style="position: relative; z-index: 10;">Request a Demo</a>
+        <a href="#features" class="btn-secondary" style="position: relative; z-index: 10;">Explore Features</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== PRODUCT OVERVIEW ===== -->
+  <section class="overview-section" id="overview">
+    <div class="overview-content">
+      <span class="section-label">Product Overview</span>
+      <h2 class="section-heading">A Holistic K-12 Platform Powered by Cognitive Memory</h2>
+      <p class="section-text">
+        EdwithAI is a holistic K-12 education platform powered by a three-layer cognitive memory system that gives every child their own AI tutor — one that remembers how they learn, when they struggle, and what makes them light up.
+      </p>
+      <p class="section-text">
+        Unlike generic AI tools that forget everything after each conversation, EdwithAI builds a living portrait of every student: their strengths, their pace, their emotional state, and their journey. Teachers get behavioral intelligence. Parents get peace of mind. And children get an experience that feels less like software and more like a patient, adaptive mentor who never gives up on them.
+      </p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== CORE USPs / FEATURES ===== -->
+  <section class="features-section" id="features">
+    <h2 class="features-title">What Makes EdwithAI Unique</h2>
+    <p class="features-subtitle">Eight core capabilities that transform how children learn, how teachers teach, and how parents stay connected.</p>
+
+    <div class="features-grid">
+
+      <!-- 1. The AI That Remembers -->
+      <div class="feature-card">
+        <span class="feature-emoji">🧠</span>
+        <h3>The AI That Remembers</h3>
+        <p>Most AI tutors have amnesia. EdwithAI's three-layer cognitive memory changes that.</p>
+        <div class="feature-detail">
+          <p><strong>Working Memory</strong> — tracks engagement, response times, and cognitive load in real-time.</p>
+          <p><strong>Episodic Memory</strong> — captures breakthroughs, struggles, and fatigue events across sessions.</p>
+          <p><strong>Semantic Memory</strong> — maps every concept with spaced repetition scheduling.</p>
+        </div>
+      </div>
+
+      <!-- 2. Adaptive Difficulty -->
+      <div class="feature-card">
+        <span class="feature-emoji">🎯</span>
+        <h3>Adaptive Difficulty — Zero Guesswork</h3>
+        <p>The Teacher Engine runs real-time behavioral analysis — mastery scores, consecutive answer patterns, fatigue detection — to compute the optimal difficulty level for every single question.</p>
+        <p style="margin-top: 0.6rem;">If a child is on a hot streak, the challenge increases. If they're struggling, the approach changes. If they're tired, the session wraps gently. All automatically.</p>
+      </div>
+
+      <!-- 3. Textbooks Become AI-Searchable -->
+      <div class="feature-card">
+        <span class="feature-emoji">📚</span>
+        <h3>Your Textbooks Become AI-Searchable</h3>
+        <p>Upload any textbook PDF or YouTube lecture, and EdwithAI's ingestion engine breaks it into searchable knowledge. The AI doesn't just answer from the internet — it answers from <em>your curriculum</em>.</p>
+        <p style="margin-top: 0.6rem;">This is Retrieval-Augmented Generation (RAG) grounded in your syllabus, not Wikipedia.</p>
+      </div>
+
+      <!-- 4. Thinking Buddy -->
+      <div class="feature-card">
+        <span class="feature-emoji">💬</span>
+        <h3>A Thinking Buddy, Not an Answer Machine</h3>
+        <p>The Thinking Buddy teaches children <em>how to think</em> — through pattern recognition, decomposition, hypothesis testing, and analogy. Every reasoning step is transparent, showing the <em>why</em> behind every thought.</p>
+        <p style="margin-top: 0.6rem;">This isn't autocomplete for homework. It's a cognitive co-pilot that nurtures independent, holistic thinking.</p>
+      </div>
+
+      <!-- 5. Child Psychology Monitoring -->
+      <div class="feature-card">
+        <span class="feature-emoji">🛡️</span>
+        <h3>Child Psychology Monitoring — Built In</h3>
+        <p>EdwithAI quietly analyses chat patterns using a validated AI psychology framework. It detects stress levels, emotional states, and wellbeing scores — surfacing high-alert situations to teachers and parents immediately.</p>
+        <p style="margin-top: 0.6rem;">Regular wellbeing reports give parents visibility into their child's emotional landscape, without being intrusive.</p>
+      </div>
+
+      <!-- 6. Teachers Get Superpowers -->
+      <div class="feature-card">
+        <span class="feature-emoji">👨‍🏫</span>
+        <h3>Teachers Get Superpowers</h3>
+        <p>EdwithAI doesn't replace teachers — it amplifies them.</p>
+        <div class="feature-detail">
+          <p><strong>Classroom Intelligence Suite</strong> — behavioral insights across every student.</p>
+          <p><strong>Lesson Planner</strong> — auto-generates plans tied to uploaded materials.</p>
+          <p><strong>Assessment Manager</strong> — creates, distributes, and tracks assignments.</p>
+          <p><strong>Live Classroom</strong> — real-time virtual teaching.</p>
+          <p><strong>Behavioral Alerts</strong> — flags students who need attention early.</p>
+        </div>
+      </div>
+
+      <!-- 7. Gamification -->
+      <div class="feature-card">
+        <span class="feature-emoji">🎮</span>
+        <h3>Gamification That Actually Works</h3>
+        <p>EdwithAI tracks XP, streaks, badges, and leaderboards — but unlike bolted-on gamification, these are wired into the adaptive engine.</p>
+        <p style="margin-top: 0.6rem;">A student's streak feeds into reminder messages, difficulty adjustments, and the AI's encouragement. When a child breaks a streak, the AI knows how to bring them back without pressure.</p>
+      </div>
+
+      <!-- 8. Provider-Agnostic AI -->
+      <div class="feature-card">
+        <span class="feature-emoji">🔌</span>
+        <h3>Provider-Agnostic AI — No Lock-In</h3>
+        <p>Schools aren't locked into one AI vendor. EdwithAI supports Google Gemini, OpenAI GPT, and Anthropic Claude — switchable per school via a configuration panel.</p>
+        <p style="margin-top: 0.6rem;">No code changes. No migration headaches. If a better model launches tomorrow, your school can switch in seconds.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="features-section" id="how-it-works">
+    <h2 class="features-title">How It Works</h2>
+    <p class="features-subtitle">From setup to intelligence — four simple steps to transform your school.</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-number">01</span>
+        <h4>Set Up Your School</h4>
+        <p>Create your school, invite teachers, set your preferred AI provider.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-number">02</span>
+        <h4>Build Your Classrooms</h4>
+        <p>Teachers create classrooms, upload textbooks and videos. The AI ingests everything into a searchable knowledge base.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-number">03</span>
+        <h4>Students Start Learning</h4>
+        <p>Students enter guided learning sessions. The AI adapts difficulty, paces the lesson, and builds mastery — all automatically.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-number">04</span>
+        <h4>Everyone Stays Informed</h4>
+        <p>Teachers see classroom-wide intelligence. Parents see wellbeing reports. Admins see usage analytics and cost tracking.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== BUILT FOR EVERY ROLE ===== -->
+  <section class="roles-section" id="roles">
+    <h2 class="features-title">Built For Every Role</h2>
+    <p class="features-subtitle">A unified platform that serves every stakeholder in education.</p>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <span class="role-icon">🎓</span>
+        <h4>Students</h4>
+        <p>Adaptive guided learning, AI chat companion, thinking buddy, gamification, homework dashboard.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-icon">👩‍🏫</span>
+        <h4>Teachers</h4>
+        <p>Classroom management, material upload, lesson planning, assessments, behavioral intelligence suite.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-icon">👨‍👩‍👧</span>
+        <h4>Parents</h4>
+        <p>Child progress monitoring, wellbeing reports, messaging, lab activity browser.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-icon">🏫</span>
+        <h4>School Admins</h4>
+        <p>School-wide analytics, user management, AI provider configuration, cost tracking.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-icon">🏠</span>
+        <h4>Homeschoolers</h4>
+        <p>Combined teacher + parent view — full curriculum management for independent learners.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== COMPARISON TABLE ===== -->
+  <section class="comparison-section" id="comparison">
+    <h2 class="features-title">What Makes EdwithAI Different</h2>
+    <p class="features-subtitle">A side-by-side look at how EdwithAI compares to traditional EdTech platforms.</p>
+
+    <div class="comparison-table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Traditional EdTech</th>
+            <th>EdwithAI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Stateless — forgets everything after each session</td>
+            <td>3-layer cognitive memory that remembers across sessions</td>
+          </tr>
+          <tr>
+            <td>Same difficulty for everyone</td>
+            <td>Real-time adaptive difficulty based on mastery and behavior</td>
+          </tr>
+          <tr>
+            <td>Generic AI answers from the internet</td>
+            <td>RAG-powered answers grounded in your uploaded curriculum</td>
+          </tr>
+          <tr>
+            <td>Gives answers directly</td>
+            <td>Thinking Buddy teaches reasoning, not just results</td>
+          </tr>
+          <tr>
+            <td>No emotional awareness</td>
+            <td>Built-in psychology monitoring with high-alert detection</td>
+          </tr>
+          <tr>
+            <td>Locked to one AI provider</td>
+            <td>Swap between Gemini, GPT, and Claude per school</td>
+          </tr>
+          <tr>
+            <td>Gamification bolted on as afterthought</td>
+            <td>Gamification wired into adaptive engine and memory</td>
+          </tr>
+          <tr>
+            <td>Teacher gets no insights</td>
+            <td>Intelligence suite with behavioral analysis and class-wide reports</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== FOR SCHOOLS & HOMESCHOOL ===== -->
+  <section class="institutional-section" id="institutional">
+    <h2 class="features-title">Designed for Institutions & Families</h2>
+
+    <div class="institutional-grid">
+      <div class="info-card">
+        <h3>🏫 For Schools & Institutions</h3>
+        <p>EdwithAI is available as a B2B platform for schools — deployed privately, configured per institution, with dedicated AI budgets and usage tracking.</p>
+        <p style="margin-top: 0.8rem;">Each school gets its own environment with custom AI provider selection, theme customization, and data isolation.</p>
+        <a href="index.html#contact" class="btn-primary" style="margin-top: 1.5rem; display: inline-block; position: relative; z-index: 10; font-size: 0.85rem;">Contact for Demo</a>
+      </div>
+      <div class="info-card">
+        <h3>🏠 For Homeschool Families</h3>
+        <p>A dedicated homeschool mode combines teacher and parent capabilities — letting you manage curriculum, track progress, and give your child a world-class AI learning companion, all from one dashboard.</p>
+        <a href="index.html#contact" class="btn-primary" style="margin-top: 1.5rem; display: inline-block; position: relative; z-index: 10; font-size: 0.85rem;">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== CALL TO ACTION ===== -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="section-heading" style="text-align: center; font-size: clamp(1.6rem, 3.5vw, 2.5rem);">Because every child deserves a tutor who never forgets.</h2>
+      <p class="features-subtitle" style="margin-bottom: 2rem;">
+        Give your students an AI companion that remembers every breakthrough, adapts to every challenge, and never gives up on them.
+      </p>
+      <a href="index.html#contact" class="btn-primary" style="position: relative; z-index: 10;">Talk to Us →</a>
+      <p class="cta-tagline">EdwithAI — Because every child deserves a tutor who never forgets, never gives up, and always adapts.</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" style="position: relative; z-index: 2;">
+    &copy; 2026 ReachOut AI Technologies. Arting AI.
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/three.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script src="js/edwithai.js"></script>
+</body>
+</html>
