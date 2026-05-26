@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA Intelligence — ReachOut</title>
+  <meta name="description" content="AURA Intelligence: The Intelligence Layer for the Agentic Future.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    /* Specific styles for AURA page */
+    .aura-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 5%;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .aura-hero-content {
+      max-width: 900px;
+      margin-top: -10vh;
+    }
+
+    .aura-hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+    }
+
+    .aura-hero-subtitle {
+      font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 750px;
+      margin-inline: auto;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: linear-gradient(45deg, #8b5cf6, #2dd4bf);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.5);
+    }
+
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 6rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .split-section {
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+      }
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem;
+      box-shadow: 0 15px 35px var(--shadow);
+    }
+
+    .info-card h3, .feature-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+    }
+
+    .info-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .features-section {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .features-title {
+      text-align: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      margin-bottom: 3rem;
+      color: #ffffff;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s;
+    }
+
+    [data-theme="light"] .feature-card {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: #8b5cf6;
+    }
+
+    .feature-card h3 {
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- Global Background -->
+  <canvas id="global-canvas"></canvas>
+
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 260 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="27" r="22" fill="#1e3a4f"/>
+        <circle cx="24" cy="27" r="3.5" fill="#fff"/>
+        <circle cx="24" cy="9" r="2.8" fill="#fff"/>
+        <circle cx="10" cy="18" r="2.8" fill="#fff"/>
+        <circle cx="38" cy="18" r="2.8" fill="#fff"/>
+        <circle cx="10" cy="37" r="2.5" fill="#fff"/>
+        <circle cx="38" cy="37" r="2.5" fill="#fff"/>
+        <circle cx="24" cy="46" r="2.5" fill="#fff"/>
+        <circle cx="40" cy="27" r="2" fill="#fff"/>
+        <circle cx="8" cy="27" r="2" fill="#fff"/>
+        <line x1="24" y1="27" x2="24" y2="9" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="10" y2="18" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="38" y2="18" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="10" y2="37" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="38" y2="37" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="24" y2="46" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
+        <line x1="24" y1="27" x2="40" y2="27" stroke="#fff" stroke-width="1" opacity="0.5"/>
+        <line x1="24" y1="27" x2="8" y2="27" stroke="#fff" stroke-width="1" opacity="0.5"/>
+        <text x="56" y="30" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="24" fill="#f0f0f5">ReachOut</text>
+        <text x="56" y="46" font-family="Inter, sans-serif" font-weight="400" font-size="10" fill="#2dd4bf" letter-spacing="3.5">ARTING AI</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about" class="nav-link">About</a></li>
+      <li><a href="index.html#products" class="nav-link active">Our Arts</a></li>
+      <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <div class="theme-toggle-thumb">
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+    </button>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="aura-hero" id="hero">
+    <div class="aura-hero-content">
+      <h1 class="aura-hero-title">The Intelligence Layer for the Agentic Future.</h1>
+      <p class="aura-hero-subtitle">
+        Stop wrestling with stateless LLM APIs. Our cross-platform intelligence layer bridges your frontend, backend, and edge devices—providing autonomous agent orchestration, temporal memory, and advanced token reduction out of the box.
+      </p>
+      <a href="#contact" class="btn-primary" style="position: relative; z-index: 10;">Start Integrating into your Systems</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== PROBLEM VS SOLUTION ===== -->
+  <section id="problem-solution" style="position: relative; z-index: 2; padding-bottom: 5rem;">
+    <div class="split-section">
+      
+      <!-- Problem -->
+      <div class="info-card problem-card">
+        <h3>The Problem: LLMs are Stateless and Expensive</h3>
+        <p>Connecting raw LLMs to your application creates a bottleneck. They lack native memory, they don't understand the flow of time, orchestrating multiple agents is a nightmare of custom code, and passing massive context windows drives your API costs through the roof.</p>
+      </div>
+
+      <!-- Solution -->
+      <div class="info-card solution-card">
+        <h3>The Solution: A True OS for AI Agents</h3>
+        <p>We provide a unified, edge-ready intelligence layer. Your application simply declares the task, and our layer handles the rest—dynamically spawning agents, managing tiered memory, compressing tokens, and perfectly orchestrating the workflow whether it's running in the cloud, on a mobile phone, or inside a robot.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== FEATURES SECTION ===== -->
+  <section class="features-section">
+    <h2 class="features-title">The Unique Advantages</h2>
+    <div class="features-grid">
+      <!-- Feature 1 -->
+      <div class="feature-card">
+        <h3>🎼 Advanced Agent Orchestration</h3>
+        <p>Go beyond simple chatbots with a fully autonomous workforce. Our orchestration engine seamlessly coordinates multiple specialized sub-agents to solve complex, multi-step problems. It dynamically routes tasks to the most capable agent, manages shared state across the swarm, and resolves dependencies automatically.</p>
+      </div>
+      <!-- Feature 2 -->
+      <div class="feature-card">
+        <h3>🧠 Task-Specific Memory Layers</h3>
+        <p>Not all data needs to be remembered forever. Our architecture features highly specialized, tiered memory layers designed for the exact task at hand.</p>
+      </div>
+      <!-- Feature 3 -->
+      <div class="feature-card">
+        <h3>🗜️ Advanced Token Usage Reduction</h3>
+        <p>Stop paying the "statelessness tax" of sending massive context histories every API call. We use advanced context caching and an integrated Prompt Compressor that aggressively prunes redundant words and formatting without losing the underlying semantic meaning—drastically slashing your API costs.</p>
+      </div>
+      <!-- Feature 4 -->
+      <div class="feature-card">
+        <h3>🎯 Hyper-Contextual Understanding</h3>
+        <p>Achieve contextual parity on your own terms. By leveraging our tiered memory system and local-first architecture, the intelligence layer maintains perfect entity consistency across entirely separate user sessions, giving your users a truly continuous AI experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section id="how-it-works" style="position: relative; z-index: 2; padding: 5rem 5%; max-width: 1200px; margin: 0 auto;">
+    <h2 class="features-title">How It Works</h2>
+    <div class="info-card">
+      <p style="margin-bottom: 1.5rem; color: #ffffff;"><strong>1. The Request:</strong> Your Web app, Android device, or Robot sends a task to the Intelligence Layer.</p>
+      <p style="margin-bottom: 1.5rem; color: #ffffff;"><strong>2. The Orchestration:</strong> The Dynamic Lifecycle Engine spawns the exact agents needed for the job.</p>
+      <p style="margin-bottom: 1.5rem; color: #ffffff;"><strong>3. The Context:</strong> The agents pull only the strictly necessary data from the Ephemeral, Episodic, or Semantic memory layers.</p>
+      <p style="color: #ffffff;"><strong>4. The Execution:</strong> Prompts are compressed to save tokens, routed to the best LLM (local or cloud), and the structured result is delivered instantly back to your device.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== CALL TO ACTION ===== -->
+  <section class="aura-hero" style="min-height: 60vh;">
+    <div class="aura-hero-content">
+      <h2 class="aura-hero-title" style="font-size: clamp(2rem, 4vw, 3rem);">Build Autonomy at the Edge.</h2>
+      <p class="aura-hero-subtitle">
+        Join the forward-thinking enterprises that are scaling intelligent, memory-aware agents safely, reliably, and cost-effectively across any device.
+      </p>
+      <a href="#contact" class="btn-primary" style="position: relative; z-index: 10;">Integrate the Layer Today -&gt;</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" style="position: relative; z-index: 2;">
+    &copy; 2026 ReachOut AI Technologies. Arting AI.
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/three.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
