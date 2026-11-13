@@ -455,6 +455,14 @@ ul { list-style: none; }
   text-transform: uppercase;
 }
 
+.hero-tagline {
+  font-size: clamp(14px, 1.5vw, 17px);
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  margin-top: -8px;
+}
+
 .scroll-indicator {
   margin-top: 32px;
   display: flex;
@@ -1029,6 +1037,11 @@ ul { list-style: none; }
 @media (max-width: 480px) {
   .hero-title {
     font-size: 40px;
+  }
+
+  .hero-tagline {
+    font-size: 13px;
+    letter-spacing: 0.05em;
   }
 
   .about-heading {
